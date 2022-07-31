@@ -1,4 +1,4 @@
-package web.config;
+package app.config;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,9 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("web")
-
+@ComponentScan("app")
 public class WebConfig implements WebMvcConfigurer {
+
     private final ApplicationContext applicationContext;
 
     public WebConfig(ApplicationContext applicationContext) {
@@ -27,10 +27,9 @@ public class WebConfig implements WebMvcConfigurer {
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("WEB-INF/view/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCacheable(false);
+        templateResolver.setPrefix("/WEB-INF/pages/");
         templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setSuffix(".html");
         return templateResolver;
     }
 
@@ -41,7 +40,6 @@ public class WebConfig implements WebMvcConfigurer {
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
-
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
